@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 3</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Задание 3</h1>
+        <h3>Сделайте "навязчивую" ссылку. Это обычная ссылка на другую страницу, но, если пользователь нацелит на нее мышку, а затем, не нажав на ссылку, попытается убрать мышку в сторону, будет выдано сообщение: "Эй!!! А нажать на меня? Забыл? Нажать сейчас?". Это сообщение должно выдаваться функцией confirm, чтобы человек мог ответить "Да" или "Нет". Если ответ - "Да", должен быть осуществлен переход так, как если бы он нажал на ссылку. 
+            <br>Разместите несколько таких ссылок на странице. </h3>
+        <p>Наведите на ссылку и попробуйте отвести мышку:</p>
+        <a href="https://www.yandex.ru" id="link1" class="persistent-link">Перейти на yandex.ru</a>
+        <br><br>
+        <a href="https://www.yandex.ru" id="link2" class="persistent-link">Еще одна ссылка</a>
+        <br><br>
+        <script>
+            function handleMouseOut(event) {
+                if (confirm("Эй!!! А нажать на меня? Забыл? Нажать сейчас?")) {
+                    window.location.href = event.target.href;
+                }
+            }
+
+            const links = document.querySelectorAll('.persistent-link');
+            links.forEach(function(link) {
+                link.addEventListener('mouseover', function() {
+                    this.addEventListener('mouseout', handleMouseOut);
+                });
+            });
+        </script>
+    </div>
+</body>
+</html>

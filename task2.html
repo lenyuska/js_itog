@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 2</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Задание 2</h1>
+        <h3>Написать функцию, которая возвращает количество заданных пользователем символов в строке, переданной в качестве аргумента</h3>
+        <p>Введите строку для подсчета количества заданных символов:</p>
+        <form>
+            <label for="inputString">Введите строку:</label>
+            <input type="text" id="inputString" placeholder="Введите текст...">
+            <label for="charToCount">Символ для подсчета:</label>
+            <input type="text" id="charToCount" maxlength="1" placeholder="Один символ">
+            <button type="button" onclick="countCharacter()">Подсчитать</button>
+        </form>
+        <p>Количество символов: <span id="result">0</span></p>
+
+        <script>
+            function countCharacter() {
+                const str = document.getElementById('inputString').value;
+                const char = document.getElementById('charToCount').value;
+                if (char.length === 1) {
+                    const count = str.split(char).length - 1;
+                    document.getElementById('result').textContent = count;
+                } else {
+                    alert("Пожалуйста, введите только один символ.");
+                }
+            }
+        </script>
+    </div>
+</body>
+</html>

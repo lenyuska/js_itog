@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 1</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Задание 1</h1>
+        <h3>Создать HTML-страницу, которая печатает Ваш возраст в годах, месяцах и днях. </h3>
+        <p>Введите свою дату рождения, чтобы узнать возраст:</p>
+        <form id="birthForm">
+            <label for="birthDate">Дата рождения:</label>
+            <input type="date" id="birthDate" required>
+            <button type="button" id="calculateButton">Рассчитать возраст</button>
+        </form>
+        <p id="ageOutput"></p>
+
+        <script>
+            function calculateAge(birthDate) {
+                const today = new Date();
+                const birth = new Date(birthDate);
+                
+                let years = today.getFullYear() - birth.getFullYear();
+                let months = today.getMonth() - birth.getMonth();
+                let days = today.getDate() - birth.getDate();
+                
+                if (months < 0 || (months === 0 && days < 0)) {
+                    years--;
+                    months += 12;
+                }
+                
+                if (days < 0) {
+                    const lastMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+                    days += lastMonth.getDate();
+                }
+
+                return { years, months, days };
+            }
+
+            function getYearsText(years) {
+                const lastDigit = years % 10;
+                const lastTwoDigits = years % 100;
+
+                if (lastTwoDigits >= 11 && lastTwoDigits <= 14) {
+                    return 'лет';
+                }
+                if (lastDigit === 1) {
+                    return 'год';
+                }
+                if (lastDigit >= 2 && lastDigit <= 4) {
+                    return 'года';
+                }
+                return 'лет';
+            }
+
+            document.getElementById('calculateButton').addEventListener('click', function () {
+                const birthDate = document.getElementById('birthDate').value;
+                if (birthDate) {
+                    const age = calculateAge(birthDate);
+                    const yearsText = getYearsText(age.years);
+                    document.getElementById('ageOutput').textContent = `Ваш возраст: ${age.years} ${yearsText}, ${age.months} месяцев, ${age.days} дней.`;
+                } else {
+                    document.getElementById('ageOutput').textContent = 'Пожалуйста, введите дату рождения.';
+                }
+            });
+        </script>
+    </div>
+</body>
+</html>
